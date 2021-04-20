@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import User from "./components/User";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import About from "./components/pages/About";
+import Home from "./components/pages/Home";
+import NotFound from "./components/pages/NotFound";
+import GithabState from "./components/context/github/GithubState";
+import AlertState from "./components/context/alert/AlertState";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GithabState>
+      <AlertState>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route exact path="/about" component={About} />
+                <Route exact path="/user/:login" component={User} />} />
+                <Route component={NotFound} />} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </AlertState>
+    </GithabState>
   );
-}
+};
 
 export default App;
